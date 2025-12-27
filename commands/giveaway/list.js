@@ -29,7 +29,7 @@ module.exports = {
                     
                     embed.addFields({
                         name: `🎁 ${giveaway.prize}`,
-                        value: `📍 Salon : <#${giveaway.channelId}>\n👥 Participants : **${giveaway.participants.length}**\n⏳ Fin : <t:${endTimestamp}:R>\n🔗 [Lien du message](${messageLink})`,
+                        value: `📍 Salon : <#${giveaway.channelId}>\n👥 Participants : **${giveaway.participants.length}**\n⏳ Fin : <t:${endTimestamp}:R>\n🔗 [Lien du message](${messageLink})\n\u200b`,
                         inline: false
                     });
                 }
