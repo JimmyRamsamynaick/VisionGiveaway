@@ -11,7 +11,7 @@ module.exports = {
             activities: [{ 
                 name: 'Rejoins le serveur de support', 
                 type: ActivityType.Streaming,
-                url: 'https://discord.gg/rQNGTfMTum'
+                url: 'https://www.twitch.tv/discord'
             }],
             status: 'online',
         });
