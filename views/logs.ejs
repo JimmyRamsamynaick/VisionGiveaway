@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision Giveaway Logs</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <% if (error) { %>
+            <div class="error"><%= error %></div>
+        <% } else { %>
+            <!-- Header Section (Screen 4 style) -->
+            <div class="summary-card">
+                <div class="summary-header">
+                    <h1>Giveaway Summary</h1>
+                    <div class="status-badge <%= giveaway.ended ? 'ended' : 'active' %>">
+                        <%= giveaway.ended ? 'Ended' : 'Active' %>
+                    </div>
+                </div>
+
+                <div class="summary-content">
+                    <div class="prize-section">
+                        <h2><%= giveaway.prize %></h2>
+                        <% if (giveaway.description) { %>
+                            <p class="description"><%= giveaway.description %></p>
+                        <% } %>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">Hosted By</span>
+                            <span class="value">
+                                <% if (hostUser) { %>
+                                    <div class="host-info">
+                                        <img src="<%= hostUser.displayAvatarURL() %>" alt="Host Avatar" class="mini-avatar">
+                                        <span><%= hostUser.username %></span>
+                                        <span class="userid-small">(<%= giveaway.hostedBy %>)</span>
+                                    </div>
+                                <% } else { %>
+                                    <%= giveaway.hostedBy %>
+                                <% } %>
+                            </span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Entries</span>
+                            <span class="value"><%= giveaway.participants.length %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Winners</span>
+                            <span class="value"><%= giveaway.winnerCount %></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Ended At</span>
+                            <span class="value"><%= new Date(giveaway.endAt).toLocaleString() %></span>
+                        </div>
+                        <div class="info-item full-width">
+                            <span class="label">Giveaway ID</span>
+                            <span class="value monospace"><%= giveaway.messageId %></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Winners Section -->
+            <div class="section-card">
+                <h3><i class="fas fa-trophy"></i> Winners</h3>
+                <div class="winners-list">
+                    <% if (giveaway.winners && giveaway.winners.length > 0) { %>
+                        <% giveaway.winners.forEach(winner => { %>
+                            <div class="winner-item">
+                                <img src="<%= winner.avatar ? `https://cdn.discordapp.com/avatars/${winner.id}/${winner.avatar}.png` : 'https://cdn.discordapp.com/embed/avatars/0.png' %>" alt="Avatar" class="avatar">
+                                <div class="user-info">
+                                    <span class="username"><%= winner.username %></span>
+                                    <span class="userid">(<%= winner.id %>)</span>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } else { %>
+                        <p class="no-data">No winners yet.</p>
+                    <% } %>
+                </div>
+            </div>
+
+            <!-- Entrants Section -->
+            <div class="section-card">
+                <h3><i class="fas fa-users"></i> Entrants (<%= giveaway.participants.length %>)</h3>
+                <div class="entrants-list">
+                    <% if (giveaway.participants.length > 0) { %>
+                        <% giveaway.participants.forEach(p => { 
+                            const isWinner = giveaway.winners.some(w => w.id === p.id);
+                        %>
+                            <div class="entrant-item <%= isWinner ? 'is-winner' : '' %>">
+                                <div class="user-info">
+                                    <span class="username"><%= p.username %></span>
+                                    <span class="userid">(<%= p.id %>)</span>
+                                </div>
+                                <% if (isWinner) { %>
+                                    <span class="winner-badge"><i class="fas fa-crown"></i></span>
+                                <% } %>
+                            </div>
+                        <% }); %>
+                    <% } else { %>
+                        <p class="no-data">No entrants yet.</p>
+                    <% } %>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>
