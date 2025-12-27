@@ -1,10 +1,19 @@
-const { REST, Routes } = require('discord.js');
+const { REST, Routes, ActivityType } = require('discord.js');
 
 module.exports = {
     name: 'ready',
     once: true,
     async execute(client) {
         console.log(`✅ Connecté en tant que ${client.user.tag}`);
+
+        // Définir le statut du bot
+        client.user.setPresence({
+            activities: [{ 
+                name: 'Rejoins le support : https://discord.gg/rQNGTfMTum', 
+                type: ActivityType.Playing 
+            }],
+            status: 'online',
+        });
 
         const commands = [];
         client.commands.forEach(cmd => commands.push(cmd.data.toJSON()));
