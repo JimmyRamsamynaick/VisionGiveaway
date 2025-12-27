@@ -54,7 +54,7 @@ VisionGiveaway est un bot Discord complet pour gérer des giveaways avec une int
 ## 📝 Utilisation
 
 ### Créer un Giveaway
-Utilisez la commande `/giveaway start`. Un formulaire s'ouvrira pour vous demander :
+Utilisez la commande `/start`. Un formulaire s'ouvrira pour vous demander :
 - La durée (ex: 10m, 1h, 2d).
 - Le nombre de gagnants.
 - Le prix à gagner.
