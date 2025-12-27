@@ -133,24 +133,7 @@ mongoose.connect(process.env.MONGO_URI)
     });
 
 // Login & Register Commands
-client.once(Events.ClientReady, async c => {
-    console.log(`[BOT] Connecté en tant que ${c.user.tag}`);
-    
-    const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
-    
-    try {
-        console.log('[BOT] Rafraîchissement des commandes (/) Slash...');
-        
-        // Register globally
-        await rest.put(
-            Routes.applicationCommands(process.env.CLIENT_ID),
-            { body: commandsToRegister },
-        );
-        
-        console.log('[BOT] Commandes (/) Slash rechargées avec succès.');
-    } catch (error) {
-        console.error(error);
-    }
-});
+// Le code de connexion est géré dans le callback de mongoose.connect
+// L'événement 'ready' est géré dans events/ready.js
 
 // REMOVED: client.login(process.env.DISCORD_TOKEN); -> Moved inside mongoose.connect.then()
