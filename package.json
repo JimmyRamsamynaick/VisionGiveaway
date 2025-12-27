@@ -18,7 +18,7 @@
     "url": "https://github.com/JimmyRamsamynaick/VisionGiveaway/issues"
   },
   "homepage": "https://github.com/JimmyRamsamynaick/VisionGiveaway#readme",
-  "description": "",
+  "description": "VisionGiveaway est un bot Discord complet pour gérer des giveaways avec une interface web intégrée. Support : https://discord.gg/sferTT73tZ",
   "dependencies": {
     "discord.js": "^14.25.1",
     "dotenv": "^17.2.3",

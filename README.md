@@ -75,3 +75,7 @@ Si vous avez participé par erreur, cliquez à nouveau sur le bouton de particip
 ## 👤 Auteur
 
 Créé par Jimmy Ramsamynaick.
+
+## 🆘 Support
+
+Besoin d'aide ou envie de discuter ? Rejoins le serveur de support : [https://discord.gg/sferTT73tZ](https://discord.gg/sferTT73tZ)
