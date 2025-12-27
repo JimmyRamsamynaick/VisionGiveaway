@@ -44,7 +44,7 @@ module.exports = {
                             .setTitle('🗑️ Giveaway Supprimé')
                             .addFields(
                                 { name: 'Prix', value: giveaway.prize, inline: true },
-                                { name: 'Supprimé par', value: `${interaction.user.toString()} (${interaction.user.id})`, inline: true },
+                                { name: 'Supprimé par', value: `${interaction.user.toString()} (\`${interaction.user.id}\`)`, inline: true },
                                 { name: 'ID Message', value: messageId, inline: true }
                             )
                             .setColor(0xFF0000) // Red
