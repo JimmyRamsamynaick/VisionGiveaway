@@ -9,7 +9,7 @@ module.exports = {
         // Définir le statut du bot
         client.user.setPresence({
             activities: [{ 
-                name: 'Rejoins le serveur de support', 
+                name: 'Gère vos Giveaways ! | Support : https://discord.gg/sferTT73tZ', 
                 type: ActivityType.Streaming,
                 url: 'https://www.twitch.tv/discord'
             }],
