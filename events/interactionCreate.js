@@ -128,7 +128,15 @@ module.exports = {
                     // Check if already joined
                     const alreadyJoined = giveaway.participants.some(p => p.id === interaction.user.id);
                     if (alreadyJoined) {
-                        return interaction.reply({ content: 'Vous participez déjà à ce giveaway !', ephemeral: true });
+                        const leaveRow = new ActionRowBuilder()
+                            .addComponents(
+                                new ButtonBuilder()
+                                    .setCustomId(`giveaway_leave_${interaction.message.id}`)
+                                    .setLabel('Quitter le Giveaway')
+                                    .setStyle(ButtonStyle.Danger)
+                            );
+
+                        return interaction.reply({ content: 'Vous participez déjà à ce giveaway !', components: [leaveRow], ephemeral: true });
                     }
 
                     // Add participant
@@ -159,6 +167,53 @@ module.exports = {
                 } catch (error) {
                     console.error(error);
                     await interaction.reply({ content: 'Erreur lors de la participation.', ephemeral: true });
+                }
+            } else if (interaction.customId.startsWith('giveaway_leave_')) {
+                const messageId = interaction.customId.replace('giveaway_leave_', '');
+
+                try {
+                    const giveaway = await Giveaway.findOne({ messageId: messageId });
+                    if (!giveaway) return interaction.reply({ content: 'Ce giveaway n\'existe plus.', ephemeral: true });
+
+                    if (giveaway.ended) return interaction.reply({ content: 'Ce giveaway est terminé.', ephemeral: true });
+
+                    // Remove participant
+                    const initialLength = giveaway.participants.length;
+                    giveaway.participants = giveaway.participants.filter(p => p.id !== interaction.user.id);
+
+                    if (giveaway.participants.length === initialLength) {
+                        return interaction.reply({ content: 'Vous ne participez pas à ce giveaway.', ephemeral: true });
+                    }
+
+                    await giveaway.save();
+
+                    // Update Embed "Entries" count
+                    // We need to fetch the original message because interaction.message here is the ephemeral message (or null/partial context)
+                    // Actually, for button clicks on ephemeral messages, interaction.message is the ephemeral message.
+                    // We need to get the real giveaway message from the channel.
+                    
+                    const channel = await interaction.guild.channels.fetch(giveaway.channelId);
+                    if (channel) {
+                        const giveawayMessage = await channel.messages.fetch(messageId).catch(() => null);
+                        if (giveawayMessage) {
+                            const currentEmbed = giveawayMessage.embeds[0];
+                            const newEmbed = EmbedBuilder.from(currentEmbed);
+                            
+                            // Rebuild description with new count
+                            let description = newEmbed.data.description;
+                            const entriesRegex = /Participants : \*\*\d+\*\*/;
+                            description = description.replace(entriesRegex, `Participants : **${giveaway.participants.length}**`);
+                            newEmbed.setDescription(description);
+
+                            await giveawayMessage.edit({ embeds: [newEmbed] });
+                        }
+                    }
+
+                    await interaction.reply({ content: '🗑️ Vous avez quitté le giveaway.', ephemeral: true });
+
+                } catch (error) {
+                    console.error(error);
+                    await interaction.reply({ content: 'Erreur lors de la tentative de quitter le giveaway.', ephemeral: true });
                 }
             }
         }
