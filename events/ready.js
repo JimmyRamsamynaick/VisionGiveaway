@@ -10,7 +10,8 @@ module.exports = {
         client.user.setPresence({
             activities: [{ 
                 name: 'Rejoins le support : https://discord.gg/rQNGTfMTum', 
-                type: ActivityType.Playing 
+                type: ActivityType.Streaming,
+                url: 'https://www.twitch.tv/discord'
             }],
             status: 'online',
         });
