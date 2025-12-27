@@ -9,9 +9,9 @@ module.exports = {
         // Définir le statut du bot
         client.user.setPresence({
             activities: [{ 
-                name: 'Rejoins le support : https://discord.gg/rQNGTfMTum', 
+                name: 'Rejoins le serveur de support', 
                 type: ActivityType.Streaming,
-                url: 'https://www.twitch.tv/discord'
+                url: 'https://discord.gg/rQNGTfMTum'
             }],
             status: 'online',
         });
