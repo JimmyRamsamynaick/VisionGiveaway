@@ -98,7 +98,7 @@ module.exports = {
                                 .addFields(
                                     { name: 'Prix', value: prize, inline: true },
                                     { name: 'Durée', value: duration, inline: true },
-                                    { name: 'Lancé par', value: interaction.user.tag, inline: true },
+                                    { name: 'Lancé par', value: interaction.user.toString(), inline: true },
                                     { name: 'Salon', value: channel.toString(), inline: true }
                                 )
                                 .setColor(0x00FF00) // Green
