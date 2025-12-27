@@ -3,32 +3,32 @@ const { SlashCommandBuilder, PermissionFlagsBits, ModalBuilder, TextInputBuilder
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('start')
-        .setDescription('Create a new giveaway via a modal form')
+        .setDescription('Créer un nouveau giveaway via un formulaire')
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
     async execute(interaction) {
         // Create the modal
         const modal = new ModalBuilder()
             .setCustomId('giveaway_create_modal')
-            .setTitle('Create a Giveaway');
+            .setTitle('Créer un Giveaway');
 
         // Add inputs to the modal
         const durationInput = new TextInputBuilder()
             .setCustomId('duration')
-            .setLabel("Duration")
+            .setLabel("Durée")
             .setStyle(TextInputStyle.Short)
             .setPlaceholder('Ex: 10 minutes')
             .setRequired(true);
 
         const winnersInput = new TextInputBuilder()
             .setCustomId('winners')
-            .setLabel("Number of Winners")
+            .setLabel("Nombre de gagnants")
             .setStyle(TextInputStyle.Short)
             .setValue('1')
             .setRequired(true);
 
         const prizeInput = new TextInputBuilder()
             .setCustomId('prize')
-            .setLabel("Prize")
+            .setLabel("Prix")
             .setStyle(TextInputStyle.Short)
             .setRequired(true);
 

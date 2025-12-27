@@ -5,10 +5,10 @@ const GuildSettings = require('../../models/GuildSettings');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('delete')
-        .setDescription('Delete a giveaway and its message')
+        .setDescription('Supprimer un giveaway et son message')
         .addStringOption(option =>
             option.setName('message_id')
-                .setDescription('The message ID of the giveaway')
+                .setDescription('L\'ID du message du giveaway')
                 .setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
     async execute(interaction) {
@@ -16,7 +16,7 @@ module.exports = {
         const giveaway = await Giveaway.findOne({ messageId: messageId });
 
         if (!giveaway) {
-            return interaction.reply({ content: '❌ Giveaway not found in database.', ephemeral: true });
+            return interaction.reply({ content: '❌ Giveaway introuvable dans la base de données.', ephemeral: true });
         }
 
         try {
@@ -59,10 +59,10 @@ module.exports = {
             // Delete from Database
             await Giveaway.deleteOne({ messageId: messageId });
 
-            await interaction.reply({ content: '✅ Giveaway deleted successfully.', ephemeral: true });
+            await interaction.reply({ content: '✅ Giveaway supprimé avec succès.', ephemeral: true });
         } catch (error) {
             console.error(error);
-            await interaction.reply({ content: '❌ An error occurred while deleting the giveaway.', ephemeral: true });
+            await interaction.reply({ content: '❌ Une erreur est survenue lors de la suppression du giveaway.', ephemeral: true });
         }
     },
 };

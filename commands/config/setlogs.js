@@ -4,10 +4,10 @@ const GuildSettings = require('../../models/GuildSettings');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('setlogs')
-        .setDescription('Set the log channel for giveaway results.')
+        .setDescription('Définir le salon de logs pour les résultats.')
         .addChannelOption(option => 
             option.setName('channel')
-                .setDescription('The channel to send logs to')
+                .setDescription('Le salon où envoyer les logs')
                 .setRequired(true))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
@@ -19,6 +19,6 @@ module.exports = {
             { upsert: true, new: true }
         );
 
-        await interaction.reply({ content: `✅ Log channel set to ${channel}`, ephemeral: true });
+        await interaction.reply({ content: `✅ Salon de logs défini sur ${channel}`, ephemeral: true });
     },
 };

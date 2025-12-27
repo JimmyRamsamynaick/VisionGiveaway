@@ -4,7 +4,7 @@ module.exports = {
     name: 'ready',
     once: true,
     async execute(client) {
-        console.log(`✅ Logged in as ${client.user.tag}`);
+        console.log(`✅ Connecté en tant que ${client.user.tag}`);
 
         const commands = [];
         client.commands.forEach(cmd => commands.push(cmd.data.toJSON()));
@@ -12,12 +12,12 @@ module.exports = {
         const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 
         try {
-            console.log('Started refreshing application (/) commands.');
+            console.log('Début du rafraîchissement des commandes (/).');
             await rest.put(
                 Routes.applicationCommands(client.user.id),
                 { body: commands },
             );
-            console.log('Successfully reloaded application (/) commands.');
+            console.log('Commandes (/) rechargées avec succès.');
         } catch (error) {
             console.error(error);
         }

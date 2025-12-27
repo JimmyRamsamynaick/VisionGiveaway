@@ -18,9 +18,9 @@ module.exports = {
             } catch (error) {
                 console.error(error);
                 if (interaction.replied || interaction.deferred) {
-                    await interaction.followUp({ content: 'There was an error while executing this command!', ephemeral: true });
+                    await interaction.followUp({ content: 'Une erreur est survenue lors de l\'exécution de cette commande !', ephemeral: true });
                 } else {
-                    await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+                    await interaction.reply({ content: 'Une erreur est survenue lors de l\'exécution de cette commande !', ephemeral: true });
                 }
             }
         
@@ -33,8 +33,8 @@ module.exports = {
                 const description = interaction.fields.getTextInputValue('description');
 
                 const msDuration = ms(duration);
-                if (!msDuration) return interaction.reply({ content: '❌ Invalid duration format.', ephemeral: true });
-                if (isNaN(winnerCount) || winnerCount < 1) return interaction.reply({ content: '❌ Invalid winner count.', ephemeral: true });
+                if (!msDuration) return interaction.reply({ content: '❌ Format de durée invalide.', ephemeral: true });
+                if (isNaN(winnerCount) || winnerCount < 1) return interaction.reply({ content: '❌ Nombre de gagnants invalide.', ephemeral: true });
 
                 const endTime = new Date(Date.now() + msDuration);
                 const channel = interaction.channel;
@@ -51,16 +51,16 @@ module.exports = {
 
                 let descriptionText = "";
                 if (description) descriptionText += `${description}\n\n`;
-                descriptionText += `Ends: <t:${Math.floor(endTime.getTime() / 1000)}:R> (<t:${Math.floor(endTime.getTime() / 1000)}:f>)\n`;
-                descriptionText += `Hosted by: ${interaction.user}\n`;
-                descriptionText += `Entries: **0**\n`;
-                descriptionText += `Winners: **${winnerCount}**`;
+                descriptionText += `Fin : <t:${Math.floor(endTime.getTime() / 1000)}:R> (<t:${Math.floor(endTime.getTime() / 1000)}:f>)\n`;
+                descriptionText += `Lancé par : ${interaction.user}\n`;
+                descriptionText += `Participants : **0**\n`;
+                descriptionText += `Gagnants : **${winnerCount}**`;
 
                 const embed = new EmbedBuilder()
                     .setTitle(prize)
                     .setDescription(descriptionText)
                     .setColor(0x2F3136) // Darker Discord Theme or Blurple
-                    .setFooter({ text: `Ends at • ${endTime.toLocaleDateString()} ${endTime.toLocaleTimeString()}` }); // Simple footer
+                    .setFooter({ text: `Fin le • ${endTime.toLocaleDateString('fr-FR')} ${endTime.toLocaleTimeString('fr-FR')}` }); // Simple footer
 
                 const row = new ActionRowBuilder()
                     .addComponents(
@@ -70,7 +70,7 @@ module.exports = {
                             .setStyle(ButtonStyle.Primary)
                     );
 
-                await interaction.reply({ content: `✅ Giveaway created!`, ephemeral: true });
+                await interaction.reply({ content: `✅ Giveaway créé !`, ephemeral: true });
                 const message = await channel.send({ embeds: [embed], components: [row] });
 
                 const newGiveaway = new Giveaway({
@@ -121,14 +121,14 @@ module.exports = {
             if (interaction.customId === 'giveaway_join') {
                 try {
                     const giveaway = await Giveaway.findOne({ messageId: interaction.message.id });
-                    if (!giveaway) return interaction.reply({ content: 'This giveaway no longer exists.', ephemeral: true });
+                    if (!giveaway) return interaction.reply({ content: 'Ce giveaway n\'existe plus.', ephemeral: true });
 
-                    if (giveaway.ended) return interaction.reply({ content: 'This giveaway has ended.', ephemeral: true });
+                    if (giveaway.ended) return interaction.reply({ content: 'Ce giveaway est terminé.', ephemeral: true });
 
                     // Check if already joined
                     const alreadyJoined = giveaway.participants.some(p => p.id === interaction.user.id);
                     if (alreadyJoined) {
-                        return interaction.reply({ content: 'You have already joined this giveaway!', ephemeral: true });
+                        return interaction.reply({ content: 'Vous participez déjà à ce giveaway !', ephemeral: true });
                     }
 
                     // Add participant
@@ -149,16 +149,16 @@ module.exports = {
                     // Rebuild description with new count
                     // We need to find "Entries: **X**" and replace it
                     let description = newEmbed.data.description;
-                    const entriesRegex = /Entries: \*\*\d+\*\*/;
-                    description = description.replace(entriesRegex, `Entries: **${giveaway.participants.length}**`);
+                    const entriesRegex = /Participants : \*\*\d+\*\*/;
+                    description = description.replace(entriesRegex, `Participants : **${giveaway.participants.length}**`);
                     newEmbed.setDescription(description);
 
                     await interaction.message.edit({ embeds: [newEmbed] });
 
-                    await interaction.reply({ content: '🎉 You have successfully joined the giveaway!', ephemeral: true });
+                    await interaction.reply({ content: '🎉 Vous participez maintenant au giveaway !', ephemeral: true });
                 } catch (error) {
                     console.error(error);
-                    await interaction.reply({ content: 'Error joining giveaway.', ephemeral: true });
+                    await interaction.reply({ content: 'Erreur lors de la participation.', ephemeral: true });
                 }
             }
         }

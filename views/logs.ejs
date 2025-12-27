@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vision Giveaway Logs</title>
+    <title>Logs Vision Giveaway</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -15,9 +15,9 @@
             <!-- Header Section (Screen 4 style) -->
             <div class="summary-card">
                 <div class="summary-header">
-                    <h1>Giveaway Summary</h1>
+                    <h1>Résumé du Giveaway</h1>
                     <div class="status-badge <%= giveaway.ended ? 'ended' : 'active' %>">
-                        <%= giveaway.ended ? 'Ended' : 'Active' %>
+                        <%= giveaway.ended ? 'Terminé' : 'Actif' %>
                     </div>
                 </div>
 
@@ -31,7 +31,7 @@
 
                     <div class="info-grid">
                         <div class="info-item">
-                            <span class="label">Hosted By</span>
+                            <span class="label">Lancé par</span>
                             <span class="value">
                                 <% if (hostUser) { %>
                                     <div class="host-info">
@@ -45,19 +45,19 @@
                             </span>
                         </div>
                         <div class="info-item">
-                            <span class="label">Entries</span>
+                            <span class="label">Participants</span>
                             <span class="value"><%= giveaway.participants.length %></span>
                         </div>
                         <div class="info-item">
-                            <span class="label">Winners</span>
+                            <span class="label">Gagnants</span>
                             <span class="value"><%= giveaway.winnerCount %></span>
                         </div>
                         <div class="info-item">
-                            <span class="label">Ended At</span>
-                            <span class="value"><%= new Date(giveaway.endAt).toLocaleString() %></span>
+                            <span class="label">Terminé le</span>
+                            <span class="value"><%= new Date(giveaway.endAt).toLocaleString('fr-FR') %></span>
                         </div>
                         <div class="info-item full-width">
-                            <span class="label">Giveaway ID</span>
+                            <span class="label">ID du Giveaway</span>
                             <span class="value monospace"><%= giveaway.messageId %></span>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
 
             <!-- Winners Section -->
             <div class="section-card">
-                <h3><i class="fas fa-trophy"></i> Winners</h3>
+                <h3><i class="fas fa-trophy"></i> Gagnants</h3>
                 <div class="winners-list">
                     <% if (giveaway.winners && giveaway.winners.length > 0) { %>
                         <% giveaway.winners.forEach(winner => { %>
@@ -79,14 +79,14 @@
                             </div>
                         <% }); %>
                     <% } else { %>
-                        <p class="no-data">No winners yet.</p>
+                        <p class="no-data">Pas encore de gagnant.</p>
                     <% } %>
                 </div>
             </div>
 
             <!-- Entrants Section -->
             <div class="section-card">
-                <h3><i class="fas fa-users"></i> Entrants (<%= giveaway.participants.length %>)</h3>
+                <h3><i class="fas fa-users"></i> Participants (<%= giveaway.participants.length %>)</h3>
                 <div class="entrants-list">
                     <% if (giveaway.participants.length > 0) { %>
                         <% giveaway.participants.forEach(p => { 
@@ -103,7 +103,7 @@
                             </div>
                         <% }); %>
                     <% } else { %>
-                        <p class="no-data">No entrants yet.</p>
+                        <p class="no-data">Aucun participant pour le moment.</p>
                     <% } %>
                 </div>
             </div>

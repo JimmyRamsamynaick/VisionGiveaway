@@ -40,10 +40,10 @@ async function endGiveaway(client, giveawayId) {
                 
                 let descriptionText = "";
                 if (giveaway.description) descriptionText += `${giveaway.description}\n\n`;
-                descriptionText += `Ended: <t:${Math.floor(Date.now() / 1000)}:R> (<t:${Math.floor(Date.now() / 1000)}:f>)\n`;
-                descriptionText += `Hosted by: <@${giveaway.hostedBy}>\n`;
-                descriptionText += `Entries: **${participants.length}**\n`;
-                descriptionText += `Winners: ${winnerText}`;
+                descriptionText += `Terminé : <t:${Math.floor(Date.now() / 1000)}:R> (<t:${Math.floor(Date.now() / 1000)}:f>)\n`;
+                descriptionText += `Lancé par : <@${giveaway.hostedBy}>\n`;
+                descriptionText += `Participants : **${participants.length}**\n`;
+                descriptionText += `Gagnants : ${winnerText}`;
 
                 const embed = EmbedBuilder.from(message.embeds[0]);
                 embed.setTitle(giveaway.prize); // Keep Prize Title
@@ -54,7 +54,7 @@ async function endGiveaway(client, giveawayId) {
                 const summaryRow = new ActionRowBuilder()
                     .addComponents(
                         new ButtonBuilder()
-                            .setLabel('Giveaway Summary')
+                            .setLabel('Résumé du Giveaway')
                             .setStyle(ButtonStyle.Link)
                             .setURL(`${process.env.DOMAIN || 'http://localhost:3000'}/giveaway/${giveaway.messageId}`)
                             .setEmoji('🔗')
