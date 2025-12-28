@@ -11,7 +11,7 @@ module.exports = {
             activities: [{ 
                 name: 'Gère vos Giveaways ! | Support : https://discord.gg/sferTT73tZ', 
                 type: ActivityType.Streaming,
-                url: 'https://www.twitch.tv/discord'
+                url: 'https://twitch.tv/jimmy_9708'
             }],
             status: 'online',
         });
