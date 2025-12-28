@@ -16,6 +16,7 @@ VisionGiveaway est un bot Discord complet pour gérer des giveaways avec une int
   - `/start` : Lancer un nouveau giveaway.
   - `/reroll` : Relancer le tirage au sort d'un giveaway.
   - `/delete` : Supprimer un giveaway.
+  - `/list` : Afficher la liste des giveaways en cours.
   - `/setlogs` : Configurer le salon de logs.
 
 ## 🛠️ Installation
