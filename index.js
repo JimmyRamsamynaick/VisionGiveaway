@@ -47,6 +47,8 @@ app.get('/giveaway/:messageId', async (req, res) => {
 
 app.listen(process.env.PORT || 3000, () => {
     console.log(`[WEB] Serveur lancé sur le port ${process.env.PORT || 3000}`);
+}).on('error', (err) => {
+    console.error('[WEB] Erreur lors du démarrage du serveur :', err);
 });
 
 // --- DISCORD CLIENT ---
@@ -91,7 +93,7 @@ mongoose.connect(process.env.MONGO_URI)
     .then(() => {
         console.log('[DB] Connecté à MongoDB');
         
-        // --- RECOVERY SYSTEM (VISION) ---
+        // --- RECOVERY SYSTEM ---
         // Relance les timers pour les giveaways actifs après un redémarrage
         // On le fait ICI, une fois la DB connectée
         const { endGiveaway } = require('./utils/endGiveaway');
