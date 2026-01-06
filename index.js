@@ -35,6 +35,11 @@ app.get('/', (req, res) => {
     res.send('VisionGiveaway est en ligne ! 🚀');
 });
 
+// Redirection pour éviter l'erreur 404 sur /giveaway/
+app.get('/giveaway', (req, res) => {
+    res.redirect('/');
+});
+
 app.get('/giveaway/:messageId', async (req, res) => {
     try {
         const giveaway = await Giveaway.findOne({ messageId: req.params.messageId });
