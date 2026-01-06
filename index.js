@@ -22,8 +22,18 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Middleware de log pour débogage
+app.use((req, res, next) => {
+    console.log(`[WEB] Requête reçue : ${req.method} ${req.url}`);
+    next();
+});
+
 // Routes Web
 const Giveaway = require('./models/Giveaway');
+
+app.get('/', (req, res) => {
+    res.send('VisionGiveaway est en ligne ! 🚀');
+});
 
 app.get('/giveaway/:messageId', async (req, res) => {
     try {
