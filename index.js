@@ -10,6 +10,7 @@ const ms = require('ms');
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildMessages
     ]
 });

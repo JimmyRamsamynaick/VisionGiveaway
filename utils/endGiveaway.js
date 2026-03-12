@@ -7,11 +7,22 @@ async function endGiveaway(client, giveawayId) {
     if (!giveaway) return console.log('Giveaway introuvable pour ID:', giveawayId);
     if (giveaway.ended) return;
 
+    let participants = giveaway.participants;
+    try {
+        const guild = await client.guilds.fetch(giveaway.guildId).catch(() => null);
+        if (guild && participants.length > 0) {
+            const checks = await Promise.allSettled(participants.map(p => guild.members.fetch(p.id)));
+            participants = participants.filter((_, idx) => checks[idx].status === 'fulfilled');
+            giveaway.participants = participants;
+        }
+    } catch (err) {
+        console.error('Erreur lors de la validation des participants:', err);
+    }
+
     // Marquer comme terminé
     giveaway.ended = true;
     
     // Tirage au sort
-    const participants = giveaway.participants;
     const winnerCount = giveaway.winnerCount;
     const winners = [];
 
